@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "node ./bin/www"
+    "start": "node ./bin/www",
+    "dev": "env-cmd -f ./.env.local nodemon ./bin/www",
+    "pro": "env-cmd -f ./.env nodemon ./bin/www"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
