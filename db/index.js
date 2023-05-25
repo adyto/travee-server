@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { urlDb } = require('../config');
 
-mongoose.connect(urlDb, {
+mongoose.connect('mongodb+srv://adi:adi@travee.gwkg7e6.mongodb.net/db_travee', {
   useUnifiedTopology: true,
   useFindAndModify: true,
   useCreateIndex: true,
