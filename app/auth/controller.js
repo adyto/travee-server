@@ -182,26 +182,32 @@ module.exports = {
       });
   },
   getEmail: async (req, res, next) => {
-    const { email } = req.body;
+    // const { email } = req.body;
 
-    Users.findOne({ email: email })
-      .then((response) => {
-        if (response) {
-          res.status(200).json({
-            data: response,
-          });
-        } else {
-          res.status(403).json({
-            message: 'email yang anda masukan belum terdaftar',
-          });
-        }
-      })
-      .catch((err) => {
-        res.status(505).json({
-          message: err.message || `Internal server error`,
-        });
-        next();
-      });
-    console.log(email);
+    // Users.findOne({ email: email })
+    //   .then((response) => {
+    //     if (response) {
+    //       res.status(200).json({
+    //         data: response,
+    //       });
+    //     } else {
+    //       res.status(403).json({
+    //         message: 'email yang anda masukan belum terdaftar',
+    //       });
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     res.status(505).json({
+    //       message: err.message || `Internal server error`,
+    //     });
+    //     next();
+    //   });
+    // console.log(email);
+    try {
+      const email = await Users.find().select('email');
+      res.status(200).json({ data: email });
+    } catch (err) {
+      res.status(500).json({ message: err.message || `Internal Server Error` });
+    }
   },
 };
