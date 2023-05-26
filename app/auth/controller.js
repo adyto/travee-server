@@ -7,6 +7,8 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const sendEmail = require('../utils/sendEmail');
+const url = require('url');
+const sendMail = require('../utils/sendEmail');
 
 module.exports = {
   signup: async (req, res, next) => {
@@ -75,7 +77,6 @@ module.exports = {
   requestPasswordReset: async (req, res, next) => {
     const { email } = req.body;
     const clientURL = process.env.CLIENT_URL;
-    console.log(clientURL);
 
     Users.findOne({ email: email })
       .then(async (user) => {
@@ -87,7 +88,7 @@ module.exports = {
               token: crypto.randomBytes(32).toString('hex'),
             }).save();
           }
-          const link = `${clientURL}/password-reset/${token.token}/${user._id}`;
+          const link = `${clientURL}/auth/reset-password/${user._id}/${token.token}`;
           console.log(`${link} 3131`);
           sendEmail(
             user.email,
@@ -101,31 +102,6 @@ module.exports = {
             message: 'email yang anda masukan belum terdaftar',
           });
         }
-
-        // if (user) {
-        //   let token = await Token.findOne({ userId: user._id });
-        //   if (token) await token.deleteOne();
-        //   let resetToken = crypto.randomBytes(32).toString('hex');
-        //   const hash = await bcrypt.hash(resetToken, 10);
-        //   await new Token({
-        //     userId: user._id,
-        //     token: hash,
-        //     createdAt: Date.now(),
-        //   }).save();
-        //   // const link = {`${clientURL}`};
-        //   const link = `http://localhost:3000/passwordReset?token=${resetToken}&id=${user._id}`;
-        //   sendEmail(
-        //     user.email,
-        //     'Password Reset Request',
-        //     { name: user.name, link: link },
-        //     './template/requestResetPassword.handlebars',
-        //   );
-        //   return link;
-        // } else {
-        //   res.status(403).json({
-        //     message: 'email yang anda masukan belum terdaftar',
-        //   });
-        // }
       })
       .catch((err) => {
         res.status(505).json({
@@ -135,14 +111,37 @@ module.exports = {
       });
   },
   resetPassword: async (req, res, next) => {
-    const { userId, token, password } = req.body;
+    const { password } = req.body;
+    const paramsUser = req.params.id;
+    const paramsId = req.params.token;
 
-    console.log(`${req.params.token} aaaaa`);
-    console.log(userId, token, password);
-    console.log(res.json(req.body));
+    const passwordResetToken = await Token.findOne({
+      userId: paramsUser,
+      token: paramsId,
+    });
+    if (!passwordResetToken) {
+      return res.status(400).send('Invalid link or expired');
+    }
+
+    const hash = await bcrypt.hash(password, 10);
+    await Users.updateOne({ _id: paramsUser }, { $set: { password: hash } });
+    console.log(passwordResetToken);
+    await passwordResetToken.delete();
+
+    const user = await Users.findById({ _id: paramsUser });
+    sendMail(
+      user.email,
+      'Password Reset Successfully',
+      { name: user.name },
+      './emails/template/resetPassword.handlebars',
+    );
+
+    res.send('password reset sucessfully.');
   },
   signin: async (req, res, next) => {
     const { email, password } = req.body;
+    console.log(`${req.body} aaaaaa`);
+    console.log(email);
 
     Users.findOne({ email: email })
       .then((user) => {

@@ -11,7 +11,7 @@ const os = require('os');
 
 router.post('/signup', multer({ dest: os.tmpdir() }).single('image'), signup);
 router.post('/signin', signin);
-router.post('/password-reset', requestPasswordReset);
-router.post('/password-reset/:token/:id', resetPassword);
+router.post('/request-reset-password', requestPasswordReset);
+router.post('/reset-password/:id/:token', resetPassword);
 
 module.exports = router;
