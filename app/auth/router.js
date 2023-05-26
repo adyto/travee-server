@@ -5,6 +5,7 @@ const {
   signin,
   requestPasswordReset,
   resetPassword,
+  getEmail,
 } = require('./controller');
 const multer = require('multer');
 const os = require('os');
@@ -13,5 +14,6 @@ router.post('/signup', multer({ dest: os.tmpdir() }).single('image'), signup);
 router.post('/signin', signin);
 router.post('/request-reset-password', requestPasswordReset);
 router.post('/reset-password/:id/:token', resetPassword);
+router.get('/get-email', getEmail);
 
 module.exports = router;

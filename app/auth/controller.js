@@ -140,8 +140,6 @@ module.exports = {
   },
   signin: async (req, res, next) => {
     const { email, password } = req.body;
-    console.log(`${req.body} aaaaaa`);
-    console.log(email);
 
     Users.findOne({ email: email })
       .then((user) => {
@@ -182,5 +180,28 @@ module.exports = {
         });
         next();
       });
+  },
+  getEmail: async (req, res, next) => {
+    const { email } = req.body;
+
+    Users.findOne({ email: email })
+      .then((response) => {
+        if (response) {
+          res.status(200).json({
+            data: response,
+          });
+        } else {
+          res.status(403).json({
+            message: 'email yang anda masukan belum terdaftar',
+          });
+        }
+      })
+      .catch((err) => {
+        res.status(505).json({
+          message: err.message || `Internal server error`,
+        });
+        next();
+      });
+    console.log(email);
   },
 };
