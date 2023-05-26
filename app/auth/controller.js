@@ -88,7 +88,7 @@ module.exports = {
               token: crypto.randomBytes(32).toString('hex'),
             }).save();
           }
-          const link = `${clientURL}/auth/reset-password/${user._id}/${token.token}`;
+          const link = `${clientURL}/reset-password/${user._id}/${token.token}`;
           console.log(`${link} 3131`);
           sendEmail(
             user.email,
