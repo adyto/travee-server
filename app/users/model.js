@@ -21,7 +21,6 @@ let usersSchema = mongoose.Schema(
       maxlength: [255, 'panjang password harus di antara 3 - 255 karakter'],
     },
     avatar: { type: String },
-    // token: { type: String },
     phoneNumber: {
       type: String,
       require: [true, 'nomor telpon harus diisi'],
