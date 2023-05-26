@@ -9,6 +9,7 @@ const flash = require('connect-flash');
 var cors = require('cors');
 
 const adminsRouter = require('./app/admins/router');
+const dashboardRouter = require('./app/dashboard/router');
 
 const authRouter = require('./app/auth/router');
 
@@ -35,8 +36,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(
+  '/adminlte',
+  express.static(path.join(__dirname, '/node_modules/admin-lte/')),
+);
 
 app.use('/', adminsRouter);
+app.use('/dashboard', dashboardRouter);
 
 //api
 app.use(`${URL}/auth`, authRouter);
