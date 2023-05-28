@@ -36,6 +36,7 @@ module.exports = {
               email: check.email,
               status: check.status,
               name: check.name,
+              role: check.role,
             };
             res.redirect('/dashboard');
           } else {

@@ -9,6 +9,7 @@ const flash = require('connect-flash');
 var cors = require('cors');
 
 const adminsRouter = require('./app/admins/router');
+const masterRouter = require('./app/master/router');
 const dashboardRouter = require('./app/dashboard/router');
 
 const authRouter = require('./app/auth/router');
@@ -42,6 +43,7 @@ app.use(
 );
 
 app.use('/', adminsRouter);
+app.use('/master', masterRouter);
 app.use('/dashboard', dashboardRouter);
 
 //api

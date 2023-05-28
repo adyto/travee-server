@@ -4,6 +4,7 @@ const { index } = require('./controller');
 const { isLoginAdmin } = require('../middleware/auth');
 
 router.use(isLoginAdmin);
-router.get('/', index);
+
+router.use('/', index);
 
 module.exports = router;
