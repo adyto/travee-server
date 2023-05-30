@@ -1,0 +1,37 @@
+<table id="example2" class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>No</th>
+      <th>Nama</th>
+      <th>Price</th>
+      <th>Aksi</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for(let i = 0; i < ticket.length; i++){ %>
+    <tr>
+      <td><%= i + 1 %></td>
+      <td><%= ticket[i].name %></td>
+      <td><%= ticket[i].price %></td>
+      <td>
+        <form
+          action="/ticket/delete/<%= ticket[i]._id %>?_method=DELETE"
+          method="post"
+        >
+          <a
+            href="/ticket/edit/<%= ticket[i]._id %>"
+            class="btn btn-info btn-sm"
+          >
+            <i class="fas fa-pencil-alt"></i>
+            Ubah
+          </a>
+          <button class="btn btn-danger btn-sm">
+            <i class="fas fa-trash-alt"></i>
+            Hapus
+          </button>
+        </form>
+      </td>
+    </tr>
+    <% } %>
+  </tbody>
+</table>

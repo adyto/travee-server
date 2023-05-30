@@ -1,0 +1,76 @@
+<table id="example2" class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>No</th>
+      <th>Nama Product</th>
+      <th>Kategori</th>
+      <th>Ticket</th>
+      <th>Status</th>
+      <th>Aksi</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for(let i = 0; i < product.length; i++){ %>
+    <tr>
+      <td><%= i + 1 %></td>
+      <td><%= product[i].name %></td>
+      <td>
+        <% product[i].category.forEach(category => { %>
+        <span class="badge badge-warning"> <%= category.name %> </span>
+        <% }) %>
+      </td>
+      <td>
+        <% product[i].ticket.forEach(ticket => { %>
+        <span class="badge badge-warning">
+          <%= ticket.name %> <%= ticket.price %>
+        </span>
+        <% }) %>
+      </td>
+      <td>
+        <% if(product[i].status === 'Y') { %>
+        <span class="badge badge-success"> Aktif </span>
+        <% } else { %>
+        <span class="badge badge-danger"> Tidak Aktif </span>
+        <% } %>
+      </td>
+      <td>
+        <form
+          action="/product/status/<%= product[i]._id %>?_method=PUT"
+          method="post"
+          style="display: inline-block"
+        >
+          <button class="btn btn-primary btn-sm">
+            <i class="fas fa-folder"></i>
+            <% if(product[i].status === 'Y') { %> Matikan <% } else { %>
+            Hidupkan <% } %>
+          </button>
+        </form>
+        <form
+          action="/product/delete/<%= product[i]._id %>?_method=DELETE"
+          method="post"
+          style="display: inline-block"
+        >
+          <a
+            href="/product/edit/<%= product[i]._id %>"
+            class="btn btn-info btn-sm"
+          >
+            <i class="fas fa-pencil-alt"></i>
+            Ubah
+          </a>
+          <a
+            href="/product/create-day/<%= product[i]._id %>"
+            class="btn btn-info btn-sm"
+          >
+            <i class="fas fa-pencil-alt"></i>
+            Add Day
+          </a>
+          <button class="btn btn-danger btn-sm">
+            <i class="fas fa-trash-alt"></i>
+            Hapus
+          </button>
+        </form>
+      </td>
+    </tr>
+    <% } %>
+  </tbody>
+</table>

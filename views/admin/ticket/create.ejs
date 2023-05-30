@@ -7,12 +7,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Admin</h1>
+          <h1>Ticket</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
-            <li class="breadcrumb-item"><a href="/master">Master</a></li>
+            <li class="breadcrumb-item"><a href="/ticket">Kategori</a></li>
             <li class="breadcrumb-item active">Tambah</li>
           </ol>
         </div>
@@ -29,68 +29,33 @@
           <!-- general form elements -->
           <div class="card card-primary">
             <div class="card-header">
-              <h3 class="card-title">Form ubah Admin</h3>
+              <h3 class="card-title">Form tambah ticket</h3>
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form action="/master/create" method="post">
+            <form action="/ticket/create" method="post">
               <div class="card-body">
                 <div class="form-group">
-                  <label for="name">Nama Admin</label>
+                  <label for="name">Masukan nama ticket</label>
                   <input
                     type="text"
                     name="name"
                     class="form-control"
                     id="name"
-                    placeholder="Masukan Nama Admin"
+                    placeholder="Masukan nama ticket"
                     required
                   />
                 </div>
                 <div class="form-group">
-                  <label for="email">Email Admin</label>
+                  <label for="price">Masukan price ticket</label>
                   <input
                     type="text"
-                    name="email"
+                    name="price"
                     class="form-control"
-                    id="email"
-                    placeholder="Masukan Email Admin"
+                    id="price"
+                    placeholder="Masukan price ticket"
                     required
                   />
-                </div>
-                <div class="form-group">
-                  <label for="phoneNumber">Phone Number</label>
-                  <input
-                    type="text"
-                    name="phoneNumber"
-                    class="form-control"
-                    id="phoneNumber"
-                    placeholder="Masukan Phone Number Admin"
-                    required
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="phoneNumber">Password</label>
-                  <input
-                    type="text"
-                    name="password"
-                    class="form-control"
-                    id="password"
-                    placeholder="Masukan Password Admin"
-                    required
-                  />
-                </div>
-                <div class="form-group">
-                  <label>Role</label>
-                  <select
-                    class="form-control select2"
-                    style="width: 100%"
-                    name="role"
-                    required
-                  >
-                    <option selected="selected">Pilih role</option>
-                    <option value="admin">Admin</option>
-                    <option value="user">User</option>
-                  </select>
                 </div>
               </div>
 

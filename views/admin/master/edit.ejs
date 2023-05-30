@@ -1,5 +1,5 @@
-<%- include ../../partials/header.ejs %> <%- include ../../partials/navbar.ejs
-%> <%- include ../../partials/sidebar.ejs %>
+option<%- include ../../partials/header.ejs %> <%- include
+../../partials/navbar.ejs %> <%- include ../../partials/sidebar.ejs %>
 
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
@@ -29,11 +29,14 @@
           <!-- general form elements -->
           <div class="card card-primary">
             <div class="card-header">
-              <h3 class="card-title">Form ubah Admin</h3>
+              <h3 class="card-title">Form tambah Admin</h3>
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form action="/master/create" method="post">
+            <form
+              action="/master/edit/<%= admin._id %>?_method=PUT"
+              method="post"
+            >
               <div class="card-body">
                 <div class="form-group">
                   <label for="name">Nama Admin</label>
@@ -42,6 +45,7 @@
                     name="name"
                     class="form-control"
                     id="name"
+                    value="<%= admin.name %>"
                     placeholder="Masukan Nama Admin"
                     required
                   />
@@ -53,6 +57,7 @@
                     name="email"
                     class="form-control"
                     id="email"
+                    value="<%= admin.email %>"
                     placeholder="Masukan Email Admin"
                     required
                   />
@@ -64,6 +69,7 @@
                     name="phoneNumber"
                     class="form-control"
                     id="phoneNumber"
+                    value="<%= admin.phoneNumber %>"
                     placeholder="Masukan Phone Number Admin"
                     required
                   />
@@ -75,6 +81,7 @@
                     name="password"
                     class="form-control"
                     id="password"
+                    value="<%= admin.password %>"
                     placeholder="Masukan Password Admin"
                     required
                   />
@@ -87,7 +94,7 @@
                     name="role"
                     required
                   >
-                    <option selected="selected">Pilih role</option>
+                    <option selected="selected"><%= admin.role %></option>
                     <option value="admin">Admin</option>
                     <option value="user">User</option>
                   </select>

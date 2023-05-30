@@ -9,10 +9,14 @@ const flash = require('connect-flash');
 var cors = require('cors');
 
 const adminsRouter = require('./app/admins/router');
+const categoryRouter = require('./app/category/router');
+const productRouter = require('./app/product/router');
+const ticketRouter = require('./app/ticket/router');
 const masterRouter = require('./app/master/router');
 const dashboardRouter = require('./app/dashboard/router');
 
 const authRouter = require('./app/auth/router');
+const usersRouter = require('./app/users/router');
 
 var app = express();
 const URL = `/api/v1`;
@@ -43,11 +47,15 @@ app.use(
 );
 
 app.use('/', adminsRouter);
+app.use('/category', categoryRouter);
+app.use('/product', productRouter);
+app.use('/ticket', ticketRouter);
 app.use('/master', masterRouter);
 app.use('/dashboard', dashboardRouter);
 
 //api
 app.use(`${URL}/auth`, authRouter);
+app.use(`${URL}/users`, usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
