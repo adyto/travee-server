@@ -19,4 +19,19 @@ module.exports = {
       res.status(500).json({ message: err.message || `Internal Server Error` });
     }
   },
+  detailProduct: async (req, res) => {
+    try {
+      const product = await Product.findOne({ _id: req.params.id })
+        .populate('category')
+        .populate('ticket');
+
+      res.status(200).json({
+        data: {
+          detail: product,
+        },
+      });
+    } catch (err) {
+      res.status(500).json({ message: err.message || `Internal Server Error` });
+    }
+  },
 };
