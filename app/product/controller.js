@@ -223,33 +223,33 @@ module.exports = {
 
         src.on('end', async () => {
           try {
-            const voucher = await Voucher.findOne({ _id: id });
+            const product = await Product.findOne({ _id: id });
 
-            let currentImage = `${config.rootPath}/public/uploads/${voucher.thumbnail}`;
+            let currentImage = `${config.rootPath}/public/uploads/${product.thumbnail}`;
             if (fs.existsSync(currentImage)) {
               fs.unlinkSync(currentImage);
             }
 
-            await Voucher.findOneAndUpdate(
+            await Product.findOneAndUpdate(
               {
                 _id: id,
               },
               {
                 name,
                 category,
-                nominals,
+                ticket,
                 thumbnail: filename,
               },
             );
 
-            req.flash('alertMessage', 'Berhasil ubah voucher');
+            req.flash('alertMessage', 'Berhasil ubah product');
             req.flash('alertStatus', 'success');
 
-            res.redirect('/voucher');
+            res.redirect('/product');
           } catch (err) {
             req.flash('alertMessage', `${err.message}`);
             req.flash('alertStatus', 'danger');
-            res.redirect('/voucher');
+            res.redirect('/product');
           }
         });
       } else {
@@ -261,6 +261,7 @@ module.exports = {
             name,
             category,
             ticket,
+            thumbnail: filename,
           },
         );
 
