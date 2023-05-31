@@ -15,7 +15,6 @@ module.exports = {
       const product = await Product.find()
         .populate('category')
         .populate('ticket');
-      console.log(`${product.category} 213123`);
       res.render('admin/product/view-product', {
         product,
         alert,
@@ -70,12 +69,13 @@ module.exports = {
             const product = new Product({
               name,
               category,
+              ticket,
               thumbnail: filename,
             });
 
             await product.save();
 
-            req.flash('alertMessage', 'Berhasil tambah voucher');
+            req.flash('alertMessage', 'Berhasil tambah product');
             req.flash('alertStatus', 'success');
 
             res.redirect('/product');
@@ -105,6 +105,38 @@ module.exports = {
       res.redirect('/product');
     }
   },
+  // actionCreate: async (req, res) => {
+  //   // console.log(req.files.map((r) => r.file.path));
+  //   try {
+  //     const { name, category, ticket } = req.body;
+
+  //     console.log(`${req.files} xxzzxcx`);
+  //     console.log(req.files);
+  //     let filenames = req.files.map((file) => {
+  //       return `${file.filename}`;
+  //     });
+
+  //     console.log(filenames);
+
+  //     // const product = new Product({
+  //     //   name,
+  //     //   category,
+  //     //   ticket,
+  //     //   thumbnail2: filenames,
+  //     //   // thumbnail: filename,
+  //     // });
+
+  //     // await product.save();
+  //     req.flash('alertMessage', 'Berhasil tambah voucher');
+  //     req.flash('alertStatus', 'success');
+
+  //     res.redirect('/product');
+  //   } catch (err) {
+  //     req.flash('alertMessage', `${err.message}`);
+  //     req.flash('alertStatus', 'danger');
+  //     res.redirect('/product');
+  //   }
+  // },
   viewCreateDays: async (req, res) => {
     try {
       const { id } = req.params;

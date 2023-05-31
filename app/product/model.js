@@ -23,6 +23,11 @@ let productSchema = mongoose.Schema(
     thumbnail: {
       type: String,
     },
+    thumbnail2: [
+      {
+        type: String,
+      },
+    ],
     ticket: [
       {
         type: mongoose.Schema.Types.ObjectId,
