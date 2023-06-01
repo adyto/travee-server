@@ -151,7 +151,7 @@ module.exports = {
                 user: {
                   id: user.id,
                   email: user.email,
-                  nama: user.nama,
+                  name: user.name,
                   phoneNumber: user.phoneNumber,
                   avatar: user.avatar,
                 },
