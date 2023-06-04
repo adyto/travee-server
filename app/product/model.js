@@ -1,14 +1,5 @@
 const mongoose = require('mongoose');
 
-const subSchemaTicket = new mongoose.Schema({
-  name: {
-    type: String,
-  },
-  price: {
-    type: Number,
-  },
-});
-
 let productSchema = mongoose.Schema(
   {
     name: {
@@ -39,24 +30,6 @@ let productSchema = mongoose.Schema(
         time: String,
         desc: String,
       },
-      // {
-      //   day2: {
-      //     time: String,
-      //     desc: String,
-      //   },
-      // },
-      // {
-      //   day3: {
-      //     time: String,
-      //     desc: String,
-      //   },
-      // },
-      // {
-      //   day4: {
-      //     time: String,
-      //     desc: String,
-      //   },
-      // },
     ],
 
     category: [

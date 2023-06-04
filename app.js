@@ -12,6 +12,7 @@ const adminsRouter = require('./app/admins/router');
 const categoryRouter = require('./app/category/router');
 const productRouter = require('./app/product/router');
 const ticketRouter = require('./app/ticket/router');
+const photosRouter = require('./app/photos/router.js');
 const masterRouter = require('./app/master/router');
 const dashboardRouter = require('./app/dashboard/router');
 
@@ -50,6 +51,7 @@ app.use('/', adminsRouter);
 app.use('/category', categoryRouter);
 app.use('/product', productRouter);
 app.use('/ticket', ticketRouter);
+app.use('/photos', photosRouter);
 app.use('/master', masterRouter);
 app.use('/dashboard', dashboardRouter);
 
