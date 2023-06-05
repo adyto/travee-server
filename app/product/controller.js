@@ -51,10 +51,11 @@ module.exports = {
   },
   actionCreate: async (req, res) => {
     try {
-      const { name, category, ticket, photo } = req.body;
+      const { name, description, category, ticket, photo } = req.body;
 
       const product = new Product({
         name,
+        description,
         category,
         ticket,
         photo,
@@ -142,7 +143,7 @@ module.exports = {
   actionEdit: async (req, res) => {
     try {
       const { id } = req.params;
-      const { name, category, ticket, photo } = req.body;
+      const { name, description, category, ticket, photo } = req.body;
 
       await Product.findOneAndUpdate(
         {
@@ -150,6 +151,7 @@ module.exports = {
         },
         {
           name,
+          description,
           category,
           ticket,
           photo,

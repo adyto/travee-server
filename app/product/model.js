@@ -6,6 +6,10 @@ let productSchema = mongoose.Schema(
       type: String,
       require: [true, 'Nama Product harus diisi'],
     },
+    description: {
+      type: String,
+      require: [true, 'Description haru diisi '],
+    },
     status: {
       type: String,
       enum: ['Y', 'N'],
