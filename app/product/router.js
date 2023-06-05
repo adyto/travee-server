@@ -1,5 +1,4 @@
 var express = require('express');
-const path = require('path');
 var router = express.Router();
 const {
   index,
@@ -13,7 +12,6 @@ const {
   actionStatus,
 } = require('./controller');
 const multer = require('multer');
-const upload = multer({ dest: 'uploads/' });
 const os = require('os');
 
 const { isLoginAdmin } = require('../middleware/auth');

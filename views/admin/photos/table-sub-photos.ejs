@@ -11,20 +11,25 @@
     <% for(let i = 0; i < resPhoto.length; i++){ %>
     <tr>
       <td><%= i + 1 %></td>
-      <td><%= resPhoto[i].subPhotos %></td>
-      <td><%= resPhoto[i]._id %></td>
+      <td>
+        <img
+          src="/uploads/<%= resPhoto[i].subPhotos %>"
+          width="200"
+          height="200"
+        />
+      </td>
       <td>
         <form
           action="/photos/sub-photos/delete/<%= photos._id %>/<%= resPhoto[i]._id %>?_method=DELETE"
           method="post"
         >
-          <a
+          <!-- <a
             href="/photos/sub-photos/edit/<%= photos._id %>/<%= resPhoto[i]._id %>"
             class="btn btn-info btn-sm"
           >
             <i class="fas fa-pencil-alt"></i>
             Ubah
-          </a>
+          </a> -->
           <button class="btn btn-danger btn-sm">
             <i class="fas fa-trash-alt"></i>
             Hapus

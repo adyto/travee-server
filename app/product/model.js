@@ -25,17 +25,16 @@ let productSchema = mongoose.Schema(
         ref: 'Ticket',
       },
     ],
-    days: [
-      {
-        time: String,
-        desc: String,
-      },
-    ],
-
     category: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Category',
+      },
+    ],
+    photo: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Photos',
       },
     ],
   },

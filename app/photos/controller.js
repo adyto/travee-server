@@ -1,5 +1,8 @@
 const mongoose = require('mongoose');
 const Photos = require('./model');
+const path = require('path');
+const fs = require('fs');
+const config = require('../../config');
 
 module.exports = {
   index: async (req, res) => {
@@ -143,20 +146,49 @@ module.exports = {
   },
   actionCreateSubPhotos: async (req, res) => {
     try {
-      const { photo } = req.body;
       const { id } = req.params;
       const viewPhotos = await Photos.findOne({ _id: id });
-      console.log('xa');
-      console.log(req.file);
-      const subNew = {
-        subPhotos: photo,
-      };
-      // await Photos.findOneAndUpdate({ _id: id }, { $push: { photos: subNew } });
 
-      // req.flash('alertMessage', 'Berhasil tambah Photos');
-      // req.flash('alertStatus', 'success');
+      if (req.file) {
+        let tmp_path = req.file.path;
+        let originalExt =
+          req.file.originalname.split('.')[
+            req.file.originalname.split('.').length - 1
+          ];
+        let filename = req.file.filename + '.' + originalExt;
+        let target_path = path.resolve(
+          config.rootPath,
+          `public/uploads/${filename}`,
+        );
 
-      // res.redirect(`/photos/sub-photos/${viewPhotos._id}`);
+        const src = fs.createReadStream(tmp_path);
+        const dest = fs.createWriteStream(target_path);
+
+        src.pipe(dest);
+
+        src.on('end', async () => {
+          try {
+            const subNew = {
+              subPhotos: filename,
+            };
+
+            await Photos.findOneAndUpdate(
+              { _id: id },
+              { $push: { photos: subNew } },
+            );
+
+            req.flash('alertMessage', 'Berhasil Sub Photos');
+            req.flash('alertStatus', 'success');
+            res.redirect(`/photos/sub-photos/${viewPhotos._id}`);
+          } catch (err) {
+            req.flash('alertMessage', `${err.message}`);
+            req.flash('alertStatus', 'danger');
+            res.redirect(`/photos/sub-photos/${viewPhotos._id}`);
+          }
+        });
+      } else {
+        res.redirect(`/photos/sub-photos/${viewPhotos._id}`);
+      }
     } catch (err) {
       const { id } = req.params;
       const viewPhotos = await Photos.findOne({ _id: id });
@@ -165,74 +197,74 @@ module.exports = {
       res.redirect(`/photos/sub-photos/${viewPhotos._id}`);
     }
   },
-  viewEditSubPhotos: async (req, res) => {
-    try {
-      const { id, photoId } = req.params;
+  // viewEditSubPhotos: async (req, res) => {
+  //   try {
+  //     const { id, photoId } = req.params;
 
-      const photos = await Photos.findById(id);
-      const res6 = photos.photos;
-      const filterPhoto = res6.filter((r) => r._id == photoId);
-      const subPhoto = filterPhoto[0];
+  //     const photos = await Photos.findById(id);
+  //     const res6 = photos.photos;
+  //     const filterPhoto = res6.filter((r) => r._id == photoId);
+  //     const subPhoto = filterPhoto[0];
 
-      res.render('admin/photos/edit-sub-photos', {
-        photos,
-        subPhoto,
-        name: req.session.user.name,
-        title: `Halaman Edit Photo ${photos.name}`,
-      });
-    } catch (err) {
-      req.flash('alertMessage', `${err.message}`);
-      req.flash('alertStatus', 'danger');
-      res.redirect();
-    }
-  },
-  actionEditSubPhotos: async (req, res) => {
-    try {
-      const { id, photoId } = req.params;
-      const { name } = req.body;
-      console.log(id, photoId);
-      console.log(name);
+  //     res.render('admin/photos/edit-sub-photos', {
+  //       photos,
+  //       subPhoto,
+  //       name: req.session.user.name,
+  //       title: `Halaman Edit Photo ${photos.name}`,
+  //     });
+  //   } catch (err) {
+  //     req.flash('alertMessage', `${err.message}`);
+  //     req.flash('alertStatus', 'danger');
+  //     res.redirect();
+  //   }
+  // },
+  // actionEditSubPhotos: async (req, res) => {
+  //   try {
+  //     const { id, photoId } = req.params;
+  //     const { name } = req.body;
+  //     console.log(id, photoId);
+  //     console.log(name);
 
-      const query = {
-        _id: photoId,
-        subPhotos: name,
-      };
-      console.log(query);
+  //     const query = {
+  //       _id: photoId,
+  //       subPhotos: name,
+  //     };
+  //     console.log(query);
 
-      // await Photos.findByIdAndUpdate(
-      //   { _id: id, 'photos._id': `${photoId}` },
-      //   {
-      //     $set: {
-      //       'photos.$.subPhotos': name,
-      //     },
-      //   },
-      // );
-      await Photos.findByIdAndUpdate(
-        {
-          _id: id,
-          photos: { $elemMatch: { _id: photoId } },
-        },
-        {
-          $set: { photos: query },
-        },
-      );
-      // console.log(res1);
+  //     // await Photos.findByIdAndUpdate(
+  //     //   { _id: id, 'photos._id': `${photoId}` },
+  //     //   {
+  //     //     $set: {
+  //     //       'photos.$.subPhotos': name,
+  //     //     },
+  //     //   },
+  //     // );
+  //     await Photos.findByIdAndUpdate(
+  //       {
+  //         _id: id,
+  //         photos: { $elemMatch: { _id: photoId } },
+  //       },
+  //       {
+  //         $set: { photos: query },
+  //       },
+  //     );
+  //     // console.log(res1);
 
-      console.log('x');
-      req.flash('alertMessage', 'Berhasil Ubah product photo');
-      req.flash('alertStatus', 'success');
-      res.redirect(`/photos/sub-photos/${id}`);
-    } catch (err) {
-      req.flash('alertMessage', `${err.message}`);
-      req.flash('alertStatus', 'danger');
-      res.redirect(`/photos/sub-photos/${req.params.id}`);
-    }
-  },
+  //     console.log('x');
+  //     req.flash('alertMessage', 'Berhasil Ubah product photo');
+  //     req.flash('alertStatus', 'success');
+  //     res.redirect(`/photos/sub-photos/${id}`);
+  //   } catch (err) {
+  //     req.flash('alertMessage', `${err.message}`);
+  //     req.flash('alertStatus', 'danger');
+  //     res.redirect(`/photos/sub-photos/${req.params.id}`);
+  //   }
+  // },
   actionDeleteSubPhotos: async (req, res) => {
     try {
       const { id, photoId } = req.params;
 
-      await Photos.findByIdAndUpdate(
+      const photo = await Photos.findByIdAndUpdate(
         {
           _id: id,
         },
@@ -244,13 +276,14 @@ module.exports = {
           },
         },
       );
-      // const res = await Photos.find({
-      //   photos: {
-      //     $elemMatch: {
-      //       _id: id,
-      //     },
-      //   },
-      // });
+
+      console.log();
+
+      let currentImage = `${config.rootPath}/public/uploads/${photo.photos[0].subPhotos}`;
+
+      if (fs.existsSync(currentImage)) {
+        fs.unlinkSync(currentImage);
+      }
 
       req.flash('alertMessage', 'Berhasil Hapus kategori');
       req.flash('alertStatus', 'success');

@@ -6,9 +6,10 @@ module.exports = {
   bestWisata: async (req, res) => {
     try {
       const product = await Product.find()
-        .select('_id name status thumbnail')
+        .select('_id name status')
         .populate('category')
-        .populate('ticket');
+        .populate('ticket')
+        .populate('photo');
 
       const bestProduct = product.filter((r) =>
         r.category.some((c) => c.name === 'best-wisata'),

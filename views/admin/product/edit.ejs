@@ -102,18 +102,22 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="image">Gambar</label>
-                  <input
-                    type="file"
-                    name="image"
-                    class="form-control"
-                    id="image"
-                    placeholder="Masukan Gambar"
-                  />
-                  <br />
-                  <img src="https://travee-server-production.up.railway.app/uploads/<%= product.thumbnail %>" id="perview" />
+                  <label>Photo</label>
+                  <select class="form-control select2" style="width: 100%;" name="photo" required >
+                    <% photo.forEach(photo=> { %>
+                      <option value="<%= photo._id %>"
+                        <% product.photo.forEach(nowProduct => { %>
+                          <% if(photo._id.toString() === nowProduct._id.toString()) { %>
+                            selected
+                          <% } %>
+                        <% }) %>
+                        >
+                          <%= photo.name %>
+                      </option>
+                    <% }) %>
+                    </select>
+                 
                 </div>
-              </div>
 
               <div class="card-footer">
                 <button type="submit" class="btn btn-primary">Simpan</button>

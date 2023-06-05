@@ -39,6 +39,7 @@
             <form
               action="/photos/sub-photos/<%= photos._id %>/create"
               method="post"
+              enctype="multipart/form-data"
             >
               <div class="card-body">
                 <div class="form-group">
@@ -49,7 +50,6 @@
                     class="form-control"
                     id="image"
                     placeholder="Masukan Gambar"
-                    multiple
                   />
                   <br />
                   <img src="" id="perview" />
@@ -74,7 +74,7 @@
 
 <%- include ../../partials/footer.ejs %> <%- include ../../partials/js.ejs %>
 
-<!-- <script>
+<script>
   function readURL(input) {
     if (input.files && input.files[0]) {
       const reader = new FileReader();
@@ -92,4 +92,4 @@
   $('#image').change(function () {
     readURL(this);
   });
-</script> -->
+</script>

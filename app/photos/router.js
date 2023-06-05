@@ -30,9 +30,13 @@ router.delete('/delete/:id', actionDelete);
 
 router.get('/sub-photos/:id', viewPhotos);
 router.get('/sub-photos/:id/create', viewCreateSubPhotos);
-router.post('/sub-photos/:id/create', actionCreateSubPhotos);
-router.get('/sub-photos/edit/:id/:photoId', viewEditSubPhotos);
-router.put('/sub-photos/edit/:id/:photoId', actionEditSubPhotos);
+router.post(
+  '/sub-photos/:id/create',
+  multer({ dest: os.tmpdir() }).single('image'),
+  actionCreateSubPhotos,
+);
+// router.get('/sub-photos/edit/:id/:photoId', viewEditSubPhotos);
+// router.put('/sub-photos/edit/:id/:photoId', actionEditSubPhotos);
 router.delete('/sub-photos/delete/:id/:photoId', actionDeleteSubPhotos);
 
 module.exports = router;

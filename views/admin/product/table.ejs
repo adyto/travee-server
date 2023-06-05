@@ -5,6 +5,7 @@
       <th>Nama Product</th>
       <th>Kategori</th>
       <th>Ticket</th>
+      <th>Photo</th>
       <th>Status</th>
       <th>Aksi</th>
     </tr>
@@ -26,6 +27,7 @@
         </span>
         <% }) %>
       </td>
+      <td><%= product[i].photo[0].name %></td>
       <td>
         <% if(product[i].status === 'Y') { %>
         <span class="badge badge-success"> Aktif </span>
@@ -57,13 +59,13 @@
             <i class="fas fa-pencil-alt"></i>
             Ubah
           </a>
-          <a
+          <!-- <a
             href="/product/create-day/<%= product[i]._id %>"
             class="btn btn-info btn-sm"
           >
             <i class="fas fa-pencil-alt"></i>
             Add Day
-          </a>
+          </a> -->
           <button class="btn btn-danger btn-sm">
             <i class="fas fa-trash-alt"></i>
             Hapus
