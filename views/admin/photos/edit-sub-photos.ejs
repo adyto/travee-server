@@ -32,24 +32,26 @@
           <!-- general form elements -->
           <div class="card card-primary">
             <div class="card-header">
-              <h3 class="card-title">Form gambar "<%= photos.name %>"</h3>
+              <h3 class="card-title">
+                Form edit sub photo "<%= subPhoto.subPhotos %>"
+              </h3>
             </div>
             <!-- /.card-header -->
             <!-- form start -->
             <form
-              action="/photos/edit/<%= photos._id %>?_method=PUT"
+              action="/photos/sub-photos/edit/<%= photos._id %>/<%= subPhoto._id %>?_method=PUT"
               method="post"
             >
               <div class="card-body">
                 <div class="form-group">
-                  <label for="name">Masukan nama product photo</label>
+                  <label for="name">Masukan sub photo terbaru</label>
                   <input
                     type="text"
-                    value="<%= photos.name %>"
+                    value="<%= subPhoto.subPhotos %>"
                     name="name"
                     class="form-control"
                     id="name"
-                    placeholder="Masukan nama product photo"
+                    placeholder="Masukan sub photo terbaru"
                     required
                   />
                 </div>

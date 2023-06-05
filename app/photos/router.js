@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+const multer = require('multer');
+const os = require('os');
 const {
   index,
   viewCreate,
@@ -30,7 +32,7 @@ router.get('/sub-photos/:id', viewPhotos);
 router.get('/sub-photos/:id/create', viewCreateSubPhotos);
 router.post('/sub-photos/:id/create', actionCreateSubPhotos);
 router.get('/sub-photos/edit/:id/:photoId', viewEditSubPhotos);
-// router.put('/sub-photos/edit/:id/:photoId', actionEditSubPhotos);
+router.put('/sub-photos/edit/:id/:photoId', actionEditSubPhotos);
 router.delete('/sub-photos/delete/:id/:photoId', actionDeleteSubPhotos);
 
 module.exports = router;

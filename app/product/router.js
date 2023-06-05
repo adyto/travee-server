@@ -20,23 +20,6 @@ const { isLoginAdmin } = require('../middleware/auth');
 
 router.use(isLoginAdmin);
 
-// const upload = multer({
-//   storage: multer.diskStorage({
-//     destination: './public/uploads',
-//     filename: (req, file, cb) => {
-//       console.log(req.files);
-//       // console.log("files " + file);
-//       cb(
-//         null,
-//         req.files[0].fieldname +
-//           '_' +
-//           Date.now() +
-//           path.extname(file.originalname),
-//       );
-//     },
-//   }),
-// });
-
 router.get('/', index);
 router.get('/create', viewCreate);
 // router.post('/create', upload.array('image', 5), actionCreate);
