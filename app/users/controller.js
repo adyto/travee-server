@@ -9,8 +9,7 @@ module.exports = {
         .select('_id name description status')
         .populate('category')
         .populate('ticket')
-        .populate('photo')
-        .populate('description');
+        .populate('photo');
 
       const bestProduct = product.filter((r) =>
         r.category.some((c) => c.name === 'best-wisata'),
