@@ -11,14 +11,6 @@ let productSchema = mongoose.Schema(
       enum: ['Y', 'N'],
       default: 'Y',
     },
-    thumbnail: {
-      type: String,
-    },
-    thumbnail2: [
-      {
-        type: String,
-      },
-    ],
     ticket: [
       {
         type: mongoose.Schema.Types.ObjectId,
