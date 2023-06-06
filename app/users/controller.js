@@ -24,7 +24,8 @@ module.exports = {
     try {
       const product = await Product.findOne({ _id: req.params.id })
         .populate('category')
-        .populate('ticket');
+        .populate('ticket')
+        .populate('photo');
 
       res.status(200).json({
         data: {
