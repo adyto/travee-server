@@ -6,7 +6,7 @@ module.exports = {
   bestWisata: async (req, res) => {
     try {
       const product = await Product.find()
-        .select('_id name description status updateAt')
+        .select('_id name description status updatedAt')
         .populate('category')
         .populate('ticket')
         .populate('photo');
