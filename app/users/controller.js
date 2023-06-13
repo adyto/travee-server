@@ -22,7 +22,7 @@ module.exports = {
   },
   bestAttraction: async (req, res) => {
     try {
-      const product = await Product.findOne()
+      const product = await Product.find()
         .select('_id name description status updatedAt')
         .populate('category')
         .populate('ticket')
