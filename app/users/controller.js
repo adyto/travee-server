@@ -20,6 +20,23 @@ module.exports = {
       res.status(500).json({ message: err.message || `Internal Server Error` });
     }
   },
+  bestAttraction: async (req, res) => {
+    try {
+      const product = await Product.findOne()
+        .select('_id name description status updatedAt')
+        .populate('category')
+        .populate('ticket')
+        .populate('photo');
+
+      const bestAttraction = product.filter((r) =>
+        r.category.some((c) => c.name === 'best-atraksi'),
+      );
+
+      res.status(200).json({ data: bestAttraction });
+    } catch (err) {
+      res.status(500).json({ message: err.message || `Internal Server Error` });
+    }
+  },
   detailProduct: async (req, res) => {
     try {
       const product = await Product.findOne({ _id: req.params.id })
